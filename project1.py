@@ -1,23 +1,33 @@
-print("Welcome to quiz game")
-ans=input("Do you want to start or quit , if yes say 's' if no say 'no'").lower()
-if ans=="yes":
-    print("Lets start")
-    q1=input("what is 3+5?")
-    if q1=="8" or q1=="eight":
-        print("correct")
-        score=1
+# Define the quiz questions and answers
+quiz = {
+    "What is the capital of France?": {"question": "What is the capital of France?", "answer": "Paris"},
+    "What is the capital of Germany?": {"question": "What is the capital of Germany?", "answer": "Berlin"},
+    "What is the capital of Italy?": {"question": "What is the capital of Italy?", "answer": "Rome"},
+    # Add more questions here
+       }
+
+# Initialize the score
+score = 0
+
+# Define the check_ans function
+def check_ans(question, ans, attempts, score):
+    if quiz[question]['answer'].lower() == ans.lower():
+        print(f"Correct Answer! \nYour score is {score + 1}!")
+        return True
     else:
-        print("incorrect")
-        score=-0.25
-    q2=input("what is 2-1?")
-    if q2=="1" or "one":
-        print("correct")
-        score+=1
-    else:
-        print("incorrect")
-        score=-0.25
-else:
-    print("end")
-print("toatal score is:",score)
-    
-      
+        print(f"Wrong Answer :( \nYou have {attempts - 1} left! \nTry again...")
+        return False
+
+# Ask the questions
+for question in quiz:
+    attempts = 3
+    while attempts > 0:
+        print(quiz[question]['question'])
+        answer = input("Enter Answer: ")
+        check = check_ans(question, answer, attempts, score)
+        if check:
+            score += 1
+            break
+        attempts -= 1
+
+print(f"Your final score is {score}!")
